@@ -1,0 +1,7 @@
+{
+  "name": "gim_frontend_react",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
