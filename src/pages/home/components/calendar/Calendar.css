@@ -1,0 +1,11 @@
+ion-datetime {
+    --background: var(--ion-background-color);
+    --color: var(--ion-text-color);
+}
+
+:root[theme='dark'] ion-datetime {
+    --background: #000000;
+    /* Fondo negro */
+    --color: #ffffff;
+    /* Texto blanco */
+}

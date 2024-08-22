@@ -1,0 +1,29 @@
+.exercise-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+}
+
+.exercise-filter ion-item {
+    --inner-padding-end: 0;
+}
+
+.exercise-filter ion-button {
+    margin-left: auto;
+    --padding-start: 0;
+    --padding-end: 0;
+}
+
+.exercise-filter ion-icon {
+    font-size: 1.5em;
+}
+
+
+.ion-padding {
+    padding: 16px;
+}
+
+.ion-justify-content-center {
+    justify-content: center;
+}

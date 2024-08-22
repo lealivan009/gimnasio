@@ -1,0 +1,13 @@
+.cardInformacion {
+    border-radius: 12px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+.titulo {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}

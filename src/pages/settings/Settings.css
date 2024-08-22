@@ -1,0 +1,66 @@
+/* Settings.css */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.settings-card {
+    margin-bottom: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.end-label {
+    margin-left: auto;
+    color: #4b4b4b;
+    /* Gris oscuro */
+    font-weight: 500;
+}
+
+.icon {
+    border-radius: 20%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+
+.primary-background {
+    background-color: var(--ion-color-primary);
+}
+
+.secondary-background {
+    background-color: var(--ion-color-secondary);
+}
+
+.tertiary-background {
+    background-color: var(--ion-color-tertiary);
+}
+
+.success-background {
+    background-color: var(--ion-color-success);
+}
+
+.warning-background {
+    background-color: var(--ion-color-warning);
+}
+
+.danger-background {
+    background-color: var(--ion-color-danger);
+}
+
+.dark-background {
+    background-color: var(--ion-color-dark);
+}
+
+.medium-background {
+    background-color: var(--ion-color-medium);
+}
+
+.light-background {
+    background-color: var(--ion-color-light);
+}

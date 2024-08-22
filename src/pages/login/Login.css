@@ -1,0 +1,56 @@
+/* Screen of login */
+.login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #1226AA;
+}
+
+/* Card */
+.login-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: var(--ion-color-light);
+    width: 90%;
+    border: 1px solid black;
+}
+
+/* Logo OSDE*/
+.logo-img-login {
+    width: 150px;
+    display: block;
+    margin: 0 auto 20px;
+    filter: invert(1);
+}
+
+/* Space between input */
+.login-item {
+    margin-bottom: 15px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-password a {
+    color: #1226AA;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    color: #04026e;
+    text-decoration: underline;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.button-create-account {
+    padding-top: 10px;
+    border-top: 1px solid black;
+    margin-top: 10px;
+}
