@@ -1,5 +1,5 @@
-import { IonGrid, IonRow, IonLabel, IonTitle, IonCol } from "@ionic/react";
-import { useState } from "react";
+import { IonGrid, IonRow, IonLabel, IonTitle, IonCol, IonSkeletonText } from "@ionic/react";
+import { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -12,7 +12,15 @@ interface imagesProp {
 }
 
 const MenuCarrusel: React.FC<imagesProp> = ({ images, nameSection }) => {
-    const [loaded, setLoaded] = useState(true);
+
+    //simulacion de espera de imagenes
+    const [loaded, setLoaded] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoaded(true);
+        }, 2000)
+    }, [])
+
     return (
         <IonGrid>
             <IonRow>
@@ -23,26 +31,35 @@ const MenuCarrusel: React.FC<imagesProp> = ({ images, nameSection }) => {
                 </IonLabel>
             </IonRow>
             <IonRow>
-                <IonCol sizeSm='12'>
+                <IonCol>
                     <Swiper
-                        //modules={[Autoplay]}
-                        //autoplay={{ delay: 5000, disableOnInteraction: false }}
+                        modules={[Autoplay]}
+                        autoplay={{ delay: 5000, disableOnInteraction: false }}
                         loop={true}
-                        slidesPerView={1.2}
+                        breakpoints={{
+                            // Para pantallas pequeñas (teléfonos), mostrar 1.2 tarjetas
+                            0: {
+                                slidesPerView: 1.2,
+                            },
+                            // Para pantallas grandes (sizeLg), mostrar 2 tarjetas
+                            992: { // Puedes ajustar este valor a lo que consideres sizeLg (1024px por ejemplo)
+                                slidesPerView: 2,
+                            },
+                        }}
                     >
-                        {loaded && images.map((image, index) => (
-                            <SwiperSlide key={index} >
-                                <div style={{ padding: "10px" }}>
-                                    <img src={image} alt={`Gym Image ${index + 1}`} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
+                        {loaded ?
+                            (images.map((image, index) => (
+                                <SwiperSlide key={index} >
+                                    <div style={{ padding: "10px" }}>
+                                        <img src={image} alt={`Gym Image ${index + 1}`} style={{ width: '100%', height: '200px', borderRadius: '10px' }} />
+                                    </div>
+                                </SwiperSlide>
+                            ))
+                            ) : (
+                                <div>
+                                    <IonSkeletonText animated={true} style={{ width: "100%", height: "200px" }} />
                                 </div>
-                            </SwiperSlide>
-                        ))}
-                        {!loaded &&
-                            <SwiperSlide>
-                                <div style={{ textAlign: 'center', padding: '50px' }}>
-                                    <p>Loading...</p>
-                                </div>
-                            </SwiperSlide>
+                            )
                         }
                     </Swiper>
                 </IonCol>

@@ -6,13 +6,9 @@ import Rutine from '../pages/rutine/Rutine'
 import Profile from '../pages/profile/Profile'
 import Settings from '../pages/settings/Settings'
 import Book from '../pages/book/Book'
-import Health from '../pages/health/Health'
 import Notifications from '../pages/notifications/Notifications'
 import Payments from '../pages/payments/Payments'
-import LoanWeight from '../pages/loanWeight/LoanWeight'
 import History from '../pages/history/History'
-import Content from '../hook/borrar/Content'
-import Header from '../hook/borrar/AppHeader'
 import Login from '../pages/login/Login'
 
 const Routes: React.FC = () => {
@@ -25,9 +21,7 @@ const Routes: React.FC = () => {
                 <Route exact path='/settings' component={Settings} />
 
                 <Route exact path='/book' component={Book} />
-                <Route exact path='/health' component={Health} />
                 <Route exact path='/history' component={History} />
-                <Route exact path='/loan-weight' component={LoanWeight} />
                 <Route exact path='/payments' component={Payments} />
                 <Route exact path='/notifications' component={Notifications} />
 

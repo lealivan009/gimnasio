@@ -20,6 +20,10 @@ const Footer = () => {
                     <IonIcon aria-hidden="true" icon={accessibility} />
                     <IonLabel>Rutina</IonLabel>
                 </IonTabButton>
+                <IonTabButton tab="Profile" href="/profile">
+                    <IonIcon aria-hidden="true" icon={person} />
+                    <IonLabel>Perfil</IonLabel>
+                </IonTabButton>
                 <IonTabButton tab="Settings" href="/settings">
                     <IonIcon aria-hidden="true" icon={settings} />
                     <IonLabel>Configuración</IonLabel>

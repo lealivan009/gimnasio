@@ -1,24 +1,3 @@
-/* Settings.css */
-.settings-container {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-}
-
-.settings-card {
-    margin-bottom: 16px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: #fff;
-}
-
-.end-label {
-    margin-left: auto;
-    color: #4b4b4b;
-    /* Gris oscuro */
-    font-weight: 500;
-}
-
 .icon {
     border-radius: 20%;
     padding: 8px;

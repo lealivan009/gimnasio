@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonLabel, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { locationOutline, cloudOutline } from 'ionicons/icons';
+import { useContext, useEffect, useState } from 'react';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonLabel, IonGrid, IonRow, IonCol, IonSkeletonText } from '@ionic/react';
+import { locationOutline, cloudOutline, rainyOutline, sunnyOutline, thunderstormOutline } from 'ionicons/icons';
 import { ThemeContext } from '../../../../hook/Context';
 
 const API_KEY = '9b3a619ceb737937e2022f70a2784715';  // Asegúrate de que esta sea la key correcta
@@ -54,49 +54,74 @@ const WeatherCard = () => {
                     (error) => {
                         console.warn("Error getting location, defaulting to Rivadavia, Mendoza:", error);
                         // Si hay un error con la geolocalización, usar la ubicación por defecto
-                        fetchWeather(-32.8302, -68.5792); // Coordenadas de Rivadavia, Mendoza
+                        fetchWeather(-33.18332, -68.4667); // Coordenadas de Rivadavia, Mendoza
                     }
                 );
             } else {
                 console.warn("Geolocation not supported, defaulting to Rivadavia, Mendoza");
                 // Si el navegador no soporta geolocalización, usar la ubicación por defecto
-                fetchWeather(-32.8302, -68.5792); // Coordenadas de Rivadavia, Mendoza
+                fetchWeather(-33.18332, -68.4667); // Coordenadas de Rivadavia, Mendoza
             }
         };
 
         getUserLocation();
     }, []);
 
-
-    if (!weather) {
-        return <p>Loading weather...</p>;
-    }
-
-    if (!weather.weather || weather.weather.length === 0) {
-        return <p>No weather data available</p>;
-    }
+    const getIcon = (description: string) => {
+        switch (description) {
+            case 'clear sky':
+                return sunnyOutline;
+            case 'rain':
+            case 'shower rain':
+                return rainyOutline;
+            case 'thunderstorm':
+                return thunderstormOutline;
+            default:
+                return cloudOutline;
+        }
+    };
 
     return (
-        <IonGrid>
+        <IonGrid >
             <IonRow>
-                <IonCol size="12" >
-                    <IonCard color={theme === 'light' ? 'light' : 'medium'}>
-                        <IonCardHeader>
-                            <IonCardTitle>
-                                <IonIcon icon={locationOutline} /> {weather.name}
-                            </IonCardTitle>
-                        </IonCardHeader>
-                        <IonCardContent>
-                            <div>
-                                <IonIcon icon={cloudOutline} style={{ fontSize: '24px', verticalAlign: 'middle' }} />
-                                <IonLabel style={{ fontSize: '20px', marginLeft: '8px' }}>{weather.weather[0].description}</IonLabel>
-                            </div>
-                            <p><strong>Temperature:</strong> {weather.main.temp} °C</p>
-                            <p><strong>Humidity:</strong> {weather.main.humidity}%</p>
-                            <p><strong>Wind Speed:</strong> {weather.wind.speed} m/s</p>
-                        </IonCardContent>
-                    </IonCard>
-                </IonCol>
+                <IonCol size="12" sizeLg='12'>
+                    {weather &&
+                        <IonCard color={theme === 'light' ? 'primary' : 'medium'}>
+                            <IonCardHeader>
+                                <IonCardTitle className='ion-text-center'>
+                                    <IonIcon icon={locationOutline} /> {weather.name}
+                                </IonCardTitle>
+                            </IonCardHeader>
+                            <IonCardContent style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                <div>
+                                    <IonLabel style={{ fontSize: '20px', marginLeft: '8px' }}>{weather.weather[0].description}</IonLabel>
+                                    <IonIcon icon={getIcon(weather.weather[0].description)} style={{ marginLeft: "10px", fontSize: '35px', verticalAlign: 'middle' }} />
+                                </div>
+                                <p><strong>Temperatura:</strong> {weather.main.temp} °C</p>
+                                <p><strong>Humedad:</strong> {weather.main.humidity}%</p>
+                                <p><strong>Velocidad del viento:</strong> {weather.wind.speed} m/s</p>
+                            </IonCardContent>
+                        </IonCard>
+                    }
+                    {!weather &&
+                        <IonCard color={theme === 'light' ? 'primary' : 'medium'}>
+                            <IonCardHeader>
+                                <IonCardTitle style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                    <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                                </IonCardTitle>
+                            </IonCardHeader>
+                            <IonCardContent style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                <div>
+                                    <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                                    <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                                </div>
+                                <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                                <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                                <IonSkeletonText animated={true} style={{ width: "200px", height: '15px' }} />
+                            </IonCardContent>
+                        </IonCard>
+                    }
+                </IonCol >
             </IonRow>
         </IonGrid>
     );

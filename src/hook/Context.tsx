@@ -11,7 +11,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 
 // Aquí usamos React.FC para que incluya el `children` automáticamente
 const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [theme, setTheme] = useState<string>('dark');
+    const [theme, setTheme] = useState<string>('light');
 
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));

@@ -1,7 +1,8 @@
-import { IonHeader, IonIcon, IonLabel, IonText, IonTitle, IonToolbar } from '@ionic/react'
+import { IonButton, IonHeader, IonIcon, IonLabel, IonText, IonTitle, IonToolbar } from '@ionic/react'
 import './Header.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../hook/Context';
+import { notifications } from 'ionicons/icons';
 
 interface HeaderProps {
     title: string;
@@ -21,6 +22,14 @@ const Header: React.FC<HeaderProps> = ({ title, icon }) => {
                     <IonIcon icon={icon} style={{ marginRight: '10px' }} />
                     {title}
                 </div>
+                <IonButton
+                    slot='end'
+                    fill='clear'
+                    style={{ marginRight: "20px" }}
+                    color={theme === 'light' ? 'dark' : 'light'}
+                    routerLink='/notifications'>
+                    <IonIcon icon={notifications} style={{ fontSize: "20px" }} />
+                </IonButton>
             </IonToolbar>
         </IonHeader>
     );

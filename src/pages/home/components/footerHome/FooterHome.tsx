@@ -6,7 +6,7 @@ const FooterHome = () => {
     return (
         <IonGrid>
             <IonRow className="ion-text-center">
-                <IonCol size="6" sizeMd="4">
+                <IonCol size="6">
                     <IonText>
                         <h4>Follow Us</h4>
                     </IonText>
@@ -24,7 +24,7 @@ const FooterHome = () => {
                 </IonCol>
 
                 {/* Contacto */}
-                <IonCol size="6" sizeMd="4">
+                <IonCol size="6">
                     <IonText>
                         <h4>Contact Us</h4>
                     </IonText>
