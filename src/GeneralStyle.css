@@ -1,0 +1,35 @@
+.primary-background {
+    background-color: var(--ion-color-primary);
+}
+
+.secondary-background {
+    background-color: var(--ion-color-secondary);
+}
+
+.tertiary-background {
+    background-color: var(--ion-color-tertiary);
+}
+
+.success-background {
+    background-color: var(--ion-color-success);
+}
+
+.warning-background {
+    background-color: var(--ion-color-warning);
+}
+
+.danger-background {
+    background-color: var(--ion-color-danger);
+}
+
+.dark-background {
+    background-color: var(--ion-color-dark);
+}
+
+.medium-background {
+    background-color: var(--ion-color-medium);
+}
+
+.light-background {
+    background-color: var(--ion-color-light);
+}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonItem, IonButton, IonPage, IonContent, IonToast, IonGrid, IonCol, IonRow, IonText } from "@ionic/react";
+import { IonCard, IonImg, IonCardHeader, IonCardContent, IonInput, IonItem, IonButton, IonPage, IonContent, IonToast, IonGrid, IonCol, IonRow } from "@ionic/react";
 import './Login.css';
-import { getToken } from '../../services/User.service';
 import { LocalStorageKeys, saveInLocalStorage } from '../../utilities';
+import { getToken } from '../../services/User.service';
 
 const Login: React.FC = () => {
     const history = useHistory();
@@ -13,13 +13,6 @@ const Login: React.FC = () => {
     const [toastMessage, setToastMessage] = useState('');
     const [toastColor, setToastColor] = useState<'success' | 'danger'>('success');
 
-    // Función para decodificar el token JWT
-    const decodeToken = (token: string) => {
-        const payloadBase64 = token.split('.')[1]; // La carga útil está en la segunda parte del token JWT
-        const decodedPayload = atob(payloadBase64); // Decodifica la parte Base64
-        return JSON.parse(decodedPayload); // Convierte la carga útil en un objeto JSON
-    };
-
     const alert = (message: string, color: 'danger' | 'success', isVisible: boolean) => {
         setToastMessage(message);
         setToastColor(color);
@@ -27,32 +20,34 @@ const Login: React.FC = () => {
     }
 
     const handleLogin = async () => {
-        try {
-
-            if (!email || !password) {
-                alert('Email and password are required', 'danger', true);
-                return;
-            }
-
-            //login en apiLeal
-            const token = await getToken(email, password);
-            saveInLocalStorage(LocalStorageKeys.TOKEN, token);
-
-            // Decodificar el token y extraer el id
-            const decodedToken = decodeToken(token);
-            const userId = decodedToken.id; // Supongamos que el 'id' está dentro del token decodificado
-            saveInLocalStorage('id', userId);
-
+        if (!email || !password) {
+            alert('Email and password are required', 'danger', true);
+            return;
+        }
+        // Login en API
+        const tokenData = await getToken(email, password); // Guardamos el resultado directamente
+        if (tokenData) {
+            // Guardar en el localStorage
+            saveInLocalStorage(LocalStorageKeys.TOKEN, tokenData.token);
+            saveInLocalStorage('id', tokenData.id);
             alert('Login successful', 'success', true);
-            history.push('/home');
-        } catch (error) {
-            alert('Login failed', 'danger', true);
+            window.location.href = '/home'; // Forzar recarga completa
+        } else {
+            alert('Login failure', 'danger', true);
+        }
+    };
+
+    //Funcion para que al presionar enter inicie sesion
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleLogin(); // Llamamos a la función de login cuando se presiona Enter
         }
     };
 
     return (
         <IonPage>
             <IonContent color='dark'>
+
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
@@ -64,7 +59,7 @@ const Login: React.FC = () => {
                 <div className="center-grid">
                     <IonGrid >
                         <IonRow >
-                            <IonCol size="12" sizeLg='4' offset='4'>
+                            <IonCol size="12" sizeLg='4' offsetLg='4'>
                                 <IonCard >
                                     <IonCardHeader>
                                         <IonImg
@@ -81,7 +76,11 @@ const Login: React.FC = () => {
                                                 placeholder='Input your email'
                                                 type='email'
                                                 labelPlacement='floating'
-                                                onIonChange={(e) => { setEmail(e.detail.value!); console.log(e.detail.value!); }}
+                                                onIonInput={(e) => {
+                                                    setEmail(e.detail.value!);
+                                                    console.log(e.detail.value!);
+                                                }}
+                                                onKeyDown={handleKeyDown}
                                             />
                                         </IonItem>
                                         <IonItem className="login-item">
@@ -91,7 +90,11 @@ const Login: React.FC = () => {
                                                 placeholder='Input your password'
                                                 type='password'
                                                 labelPlacement='floating'
-                                                onIonChange={(e) => { setPassword(e.detail.value!); }}
+                                                onIonInput={(e) => {
+                                                    setPassword(e.detail.value!);
+                                                    console.log(e.detail.value!);
+                                                }}
+                                                onKeyDown={handleKeyDown}
                                             />
                                         </IonItem>
                                         <IonButton

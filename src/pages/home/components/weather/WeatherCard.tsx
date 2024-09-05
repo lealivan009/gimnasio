@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonLabel, IonGrid, IonRow, IonCol, IonSkeletonText } from '@ionic/react';
 import { locationOutline, cloudOutline, rainyOutline, sunnyOutline, thunderstormOutline } from 'ionicons/icons';
-import { ThemeContext } from '../../../../hook/Context';
+import { UseTheme } from '../../../../hook/UseTheme';
 
 const API_KEY = '9b3a619ceb737937e2022f70a2784715';  // Asegúrate de que esta sea la key correcta
 
@@ -20,9 +20,8 @@ interface WeatherData {
 }
 
 const WeatherCard = () => {
-    const themeContext = useContext(ThemeContext);
-    if (!themeContext) return null; // Manejo de caso en el que el contexto no esté disponible
-    const { theme } = themeContext;
+    //Custom hook for themes
+    const { theme } = UseTheme();
 
     const [weather, setWeather] = useState<WeatherData | null>(null);
 
@@ -86,7 +85,14 @@ const WeatherCard = () => {
             <IonRow>
                 <IonCol size="12" sizeLg='12'>
                     {weather &&
-                        <IonCard color={theme === 'light' ? 'primary' : 'medium'}>
+                        <IonCard
+                            style={{
+                                backgroundImage: "url('https://get.wallhere.com/photo/sky-storm-evening-Sun-atmosphere-dusk-light-cloud-weather-dawn-thunderstorm-distance-afterglow-meteorological-phenomenon-cumulus-593098.jpg')",
+                                backgroundSize: "cover", // Ajusta para que la imagen cubra toda la card
+                                backgroundPosition: "center", // Centra la imagen
+                            }}
+                            color='dark'
+                        >
                             <IonCardHeader>
                                 <IonCardTitle className='ion-text-center'>
                                     <IonIcon icon={locationOutline} /> {weather.name}

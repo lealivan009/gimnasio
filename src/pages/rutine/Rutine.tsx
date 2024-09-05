@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton,
     IonGrid, IonRow, IonCol, IonList, IonAccordion, IonAccordionGroup,
@@ -9,6 +9,7 @@ import Footer from '../../components/footer/Footer';
 import { ThemeContext } from '../../hook/Context';
 import { accessibility } from 'ionicons/icons';
 import ButtonWithClock from './components/buttonWithClock/ButtonWithClock';
+import SplashScreen from '../splashScreen/SplashScreen';
 
 
 
@@ -17,6 +18,8 @@ const Rutine = () => {
     const themeContext = useContext(ThemeContext);
     if (!themeContext) return null;
     const { theme, toggleTheme } = themeContext;
+
+    const [isLoading, setIsLoading] = useState(true); // Estado de carga
 
     // Función para formatear el tiempo
     const formatTime = (time: number) => {
@@ -121,26 +124,73 @@ const Rutine = () => {
         ]
     };
 
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+    }, [])
+
     return (
-        <IonPage>
-            <Header title="Rutina" icon={accessibility} />
+        isLoading ? (
+            <SplashScreen />
+        ) : (
+            <IonPage>
+                <Header title="Rutina" icon={accessibility} />
 
-            <IonContent color={theme === 'light' ? 'light' : 'medium'}>
-                <IonGrid>
+                <IonContent color={theme === 'light' ? 'light' : 'medium'}>
+                    <IonGrid>
 
-                    {/* Chest Exercises */}
-                    <IonRow>
-                        <IonCol size="12" sizeLg='8' offsetLg='2'>
-                            <IonTitle className='ion-text-center'>Rutina de hoy</IonTitle>
-                        </IonCol>
-                        <IonCol size="12" sizeLg='8' offsetLg='2'>
-                            <IonCard color={theme === 'light' ? 'light' : 'dark'}>
-                                <IonCardHeader>
-                                    <IonCardTitle>Chest Exercises</IonCardTitle>
-                                </IonCardHeader>
-                                <IonAccordionGroup >
-                                    <IonList style={{ padding: '0px' }} >
-                                        {exercises.chest.map((exercise, index) => (
+                        {/* Chest Exercises */}
+                        <IonRow>
+                            <IonCol size="12" sizeLg='8' offsetLg='2'>
+                                <IonTitle className='ion-text-center'>Rutina de hoy</IonTitle>
+                            </IonCol>
+                            <IonCol size="12" sizeLg='8' offsetLg='2'>
+                                <IonCard color={theme === 'light' ? 'light' : 'dark'}>
+                                    <IonCardHeader>
+                                        <IonCardTitle>Chest Exercises</IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonAccordionGroup >
+                                        <IonList style={{ padding: '0px' }} >
+                                            {exercises.chest.map((exercise, index) => (
+                                                <IonAccordion key={index}>
+                                                    <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
+                                                        <IonLabel>{exercise.name}</IonLabel>
+                                                    </IonItem>
+                                                    <div slot="content"
+                                                        style={{
+                                                            padding: '10px',
+                                                            backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
+                                                            color: theme === 'light' ? '#000000' : '#ffffff'
+                                                        }}
+                                                    >
+                                                        <p>{exercise.description}</p>
+                                                        <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
+                                                        <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
+                                                        <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
+                                                        <IonRow className="ion-justify-content-center">
+                                                            <ButtonWithClock time={exercise.time} />
+                                                            <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
+                                                        </IonRow>
+                                                    </div>
+                                                </IonAccordion>
+                                            ))}
+                                        </IonList>
+
+                                    </IonAccordionGroup>
+                                </IonCard>
+                            </IonCol>
+                        </IonRow>
+
+                        {/* Biceps Exercises */}
+                        <IonRow>
+                            <IonCol size="12" sizeLg='8' offsetLg='2'>
+                                <IonCard color={theme === 'light' ? 'light' : 'dark'}>
+                                    <IonCardHeader>
+                                        <IonCardTitle>Biceps Exercises</IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonAccordionGroup>
+                                        {exercises.biceps.map((exercise, index) => (
                                             <IonAccordion key={index}>
                                                 <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
                                                     <IonLabel>{exercise.name}</IonLabel>
@@ -163,129 +213,92 @@ const Rutine = () => {
                                                 </div>
                                             </IonAccordion>
                                         ))}
-                                    </IonList>
+                                    </IonAccordionGroup>
+                                </IonCard>
+                            </IonCol>
+                        </IonRow>
 
-                                </IonAccordionGroup>
-                            </IonCard>
-                        </IonCol>
-                    </IonRow>
+                        {/* Back Exercises */}
+                        <IonRow>
+                            <IonCol size='12' sizeLg='8' offsetLg='2'>
+                                <IonTitle className='ion-text-center'>Proxima rutina</IonTitle>
+                            </IonCol>
+                            <IonCol size="12" sizeLg='8' offsetLg='2'>
+                                <IonCard color={theme === 'light' ? 'light' : 'dark'}>
+                                    <IonCardHeader>
+                                        <IonCardTitle>Ejercicios de Espalda</IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonAccordionGroup>
+                                        {exercises.back.map((exercise, index) => (
+                                            <IonAccordion key={index}>
+                                                <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
+                                                    <IonLabel>{exercise.name}</IonLabel>
+                                                </IonItem>
+                                                <div slot="content"
+                                                    style={{
+                                                        padding: '10px',
+                                                        backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
+                                                        color: theme === 'light' ? '#000000' : '#ffffff'
+                                                    }}
+                                                >
+                                                    <p>{exercise.description}</p>
+                                                    <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
+                                                    <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
+                                                    <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
+                                                    <IonRow className="ion-justify-content-center">
+                                                        <ButtonWithClock time={exercise.time} />
+                                                        <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
+                                                    </IonRow>
+                                                </div>
+                                            </IonAccordion>
+                                        ))}
+                                    </IonAccordionGroup>
+                                </IonCard>
+                            </IonCol>
+                        </IonRow>
 
-                    {/* Biceps Exercises */}
-                    <IonRow>
-                        <IonCol size="12" sizeLg='8' offsetLg='2'>
-                            <IonCard color={theme === 'light' ? 'light' : 'dark'}>
-                                <IonCardHeader>
-                                    <IonCardTitle>Biceps Exercises</IonCardTitle>
-                                </IonCardHeader>
-                                <IonAccordionGroup>
-                                    {exercises.biceps.map((exercise, index) => (
-                                        <IonAccordion key={index}>
-                                            <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
-                                                <IonLabel>{exercise.name}</IonLabel>
-                                            </IonItem>
-                                            <div slot="content"
-                                                style={{
-                                                    padding: '10px',
-                                                    backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
-                                                    color: theme === 'light' ? '#000000' : '#ffffff'
-                                                }}
-                                            >
-                                                <p>{exercise.description}</p>
-                                                <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
-                                                <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
-                                                <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
-                                                <IonRow className="ion-justify-content-center">
-                                                    <ButtonWithClock time={exercise.time} />
-                                                    <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
-                                                </IonRow>
-                                            </div>
-                                        </IonAccordion>
-                                    ))}
-                                </IonAccordionGroup>
-                            </IonCard>
-                        </IonCol>
-                    </IonRow>
+                        {/* Triceps Exercises */}
+                        <IonRow>
+                            <IonCol size="12" sizeLg='8' offsetLg='2'>
+                                <IonCard color={theme === 'light' ? 'light' : 'dark'}>
+                                    <IonCardHeader>
+                                        <IonCardTitle>Triceps Exercises</IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonAccordionGroup>
+                                        {exercises.triceps.map((exercise, index) => (
+                                            <IonAccordion key={index}>
+                                                <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
+                                                    <IonLabel>{exercise.name}</IonLabel>
+                                                </IonItem>
+                                                <div slot="content"
+                                                    style={{
+                                                        padding: '10px',
+                                                        backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
+                                                        color: theme === 'light' ? '#000000' : '#ffffff'
+                                                    }}
+                                                >
+                                                    <p>{exercise.description}</p>
+                                                    <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
+                                                    <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
+                                                    <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
+                                                    <IonRow className="ion-justify-content-center">
+                                                        <ButtonWithClock time={exercise.time} />
+                                                        <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
+                                                    </IonRow>
+                                                </div>
+                                            </IonAccordion>
+                                        ))}
+                                    </IonAccordionGroup>
+                                </IonCard>
+                            </IonCol>
+                        </IonRow>
 
-                    {/* Back Exercises */}
-                    <IonRow>
-                        <IonCol size='12' sizeLg='8' offsetLg='2'>
-                            <IonTitle className='ion-text-center'>Proxima rutina</IonTitle>
-                        </IonCol>
-                        <IonCol size="12" sizeLg='8' offsetLg='2'>
-                            <IonCard color={theme === 'light' ? 'light' : 'dark'}>
-                                <IonCardHeader>
-                                    <IonCardTitle>Ejercicios de Espalda</IonCardTitle>
-                                </IonCardHeader>
-                                <IonAccordionGroup>
-                                    {exercises.back.map((exercise, index) => (
-                                        <IonAccordion key={index}>
-                                            <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
-                                                <IonLabel>{exercise.name}</IonLabel>
-                                            </IonItem>
-                                            <div slot="content"
-                                                style={{
-                                                    padding: '10px',
-                                                    backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
-                                                    color: theme === 'light' ? '#000000' : '#ffffff'
-                                                }}
-                                            >
-                                                <p>{exercise.description}</p>
-                                                <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
-                                                <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
-                                                <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
-                                                <IonRow className="ion-justify-content-center">
-                                                    <ButtonWithClock time={exercise.time} />
-                                                    <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
-                                                </IonRow>
-                                            </div>
-                                        </IonAccordion>
-                                    ))}
-                                </IonAccordionGroup>
-                            </IonCard>
-                        </IonCol>
-                    </IonRow>
+                    </IonGrid>
+                </IonContent>
 
-                    {/* Triceps Exercises */}
-                    <IonRow>
-                        <IonCol size="12" sizeLg='8' offsetLg='2'>
-                            <IonCard color={theme === 'light' ? 'light' : 'dark'}>
-                                <IonCardHeader>
-                                    <IonCardTitle>Triceps Exercises</IonCardTitle>
-                                </IonCardHeader>
-                                <IonAccordionGroup>
-                                    {exercises.triceps.map((exercise, index) => (
-                                        <IonAccordion key={index}>
-                                            <IonItem slot="header" color={theme === 'light' ? 'light' : 'dark'}>
-                                                <IonLabel>{exercise.name}</IonLabel>
-                                            </IonItem>
-                                            <div slot="content"
-                                                style={{
-                                                    padding: '10px',
-                                                    backgroundColor: theme === 'light' ? '#ffffff' : '#1e1e1e',
-                                                    color: theme === 'light' ? '#000000' : '#ffffff'
-                                                }}
-                                            >
-                                                <p>{exercise.description}</p>
-                                                <p><strong>Repeticiones:</strong> {exercise.setsAndReps}</p>
-                                                <p><strong>Último peso máximo:</strong> {exercise.lastMaxWeight}</p>
-                                                <p><strong>Tiempo:</strong> {formatTime(exercise.time)}</p>
-                                                <IonRow className="ion-justify-content-center">
-                                                    <ButtonWithClock time={exercise.time} />
-                                                    <IonButton fill="outline" color={theme === 'light' ? 'primary' : 'light'}>Cargar peso maximo</IonButton>
-                                                </IonRow>
-                                            </div>
-                                        </IonAccordion>
-                                    ))}
-                                </IonAccordionGroup>
-                            </IonCard>
-                        </IonCol>
-                    </IonRow>
-
-                </IonGrid>
-            </IonContent>
-
-            <Footer />
-        </IonPage >
+                <Footer />
+            </IonPage >
+        )
     );
 };
 

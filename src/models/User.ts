@@ -13,10 +13,15 @@ export interface User {
     birthDate: string;
     username: string;
     email: string;
+    phone: string;
+    province: string,
+    departament: string,
+    address: string,
     dni: string;
     height: number;
     lastWeight: number;
     lastConnection: string;
+    created: string;
     weights: Weight[];
     roles: string[];
 }

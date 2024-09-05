@@ -10,6 +10,9 @@ import Notifications from '../pages/notifications/Notifications'
 import Payments from '../pages/payments/Payments'
 import History from '../pages/history/History'
 import Login from '../pages/login/Login'
+import UpdateAccount from '../pages/updateAccount/UpdateAccount'
+import DeleteAccount from '../pages/deleteAccount/DeleteAccount'
+import ErrorPage from '../pages/errorPage/ErrorPage'
 
 const Routes: React.FC = () => {
     return (
@@ -18,12 +21,16 @@ const Routes: React.FC = () => {
                 <Route exact path='/home' component={Home} />
                 <Route exact path='/rutine' component={Rutine} />
                 <Route exact path='/profile' component={Profile} />
+                <Route exact path='/updateAccount' component={UpdateAccount} />
+                <Route exact path='/deleteAccount' component={DeleteAccount} />
                 <Route exact path='/settings' component={Settings} />
 
                 <Route exact path='/book' component={Book} />
                 <Route exact path='/history' component={History} />
                 <Route exact path='/payments' component={Payments} />
                 <Route exact path='/notifications' component={Notifications} />
+
+                <Route exact path='/error' component={ErrorPage} />
 
                 <Route exact path='/login' component={Login} />
 
