@@ -52,10 +52,19 @@ export const getToken = async (email: string, password: string): Promise<TokenIn
                 'Cache-Control': 'no-cache'
             }
         });
-
         return response.data;
-    } catch (error) {
-        console.error(`Failed login: ${error}`);
-        throw new Error('Failed login');
+    } catch (error: any) {
+        // Verifica si el error es una respuesta de Axios
+        if (error.response) {
+            // Extrae el código de estado y el mensaje del backend
+            const statusCode = error.response.status;
+            const errorMessage = error.response.data || "An error occurred";
+
+            // Lanza un objeto que contenga estos datos
+            throw { statusCode, errorMessage };
+        } else {
+            // En caso de otro tipo de error, lanza un error genérico
+            throw { statusCode: 500, errorMessage: "Network or server error occurred" };
+        }
     }
 };

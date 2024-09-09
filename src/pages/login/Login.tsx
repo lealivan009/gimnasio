@@ -25,16 +25,26 @@ const Login: React.FC = () => {
             return;
         }
         // Login en API
-        const tokenData = await getToken(email, password); // Guardamos el resultado directamente
-        if (tokenData) {
-            // Guardar en el localStorage
-            saveInLocalStorage(LocalStorageKeys.TOKEN, tokenData.token);
-            saveInLocalStorage('id', tokenData.id);
-            alert('Login successful', 'success', true);
-            window.location.href = '/home'; // Forzar recarga completa
-        } else {
-            alert('Login failure', 'danger', true);
+        try {
+            const tokenData = await getToken(email, password); // Guardamos el resultado directamente
+            if (tokenData) {
+                // Guardar en el localStorage
+                saveInLocalStorage(LocalStorageKeys.TOKEN, tokenData.token);
+                saveInLocalStorage('id', tokenData.id);
+                alert('Login successful', 'success', true);
+                window.location.href = '/home'; // Forzar recarga completa
+            } else {
+                alert('Login failure', 'danger', true);
+            }
+        } catch (error: any) {
+            // Verifica si el error tiene `errorMessage`
+            if (error && error.errorMessage) {
+                alert(error.errorMessage, 'danger', true);  // Muestra el mensaje del backend
+            } else {
+                alert('An unexpected error occurred', 'danger', true);  // Error genérico
+            }
         }
+
     };
 
     //Funcion para que al presionar enter inicie sesion
@@ -78,7 +88,6 @@ const Login: React.FC = () => {
                                                 labelPlacement='floating'
                                                 onIonInput={(e) => {
                                                     setEmail(e.detail.value!);
-                                                    console.log(e.detail.value!);
                                                 }}
                                                 onKeyDown={handleKeyDown}
                                             />
@@ -92,7 +101,6 @@ const Login: React.FC = () => {
                                                 labelPlacement='floating'
                                                 onIonInput={(e) => {
                                                     setPassword(e.detail.value!);
-                                                    console.log(e.detail.value!);
                                                 }}
                                                 onKeyDown={handleKeyDown}
                                             />
@@ -104,7 +112,7 @@ const Login: React.FC = () => {
                                             Login
                                         </IonButton>
                                         <p className="forgot-password" onClick={() => history.push("/forgotpassword")}>
-                                            <a >Olvidaste la contraseña? has clic aquí</a>
+                                            <a>Olvidaste la contraseña? has clic aquí</a>
                                         </p>
                                     </IonCardContent>
                                 </IonCard>

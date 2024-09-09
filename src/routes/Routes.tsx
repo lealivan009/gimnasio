@@ -13,30 +13,45 @@ import Login from '../pages/login/Login'
 import UpdateAccount from '../pages/updateAccount/UpdateAccount'
 import DeleteAccount from '../pages/deleteAccount/DeleteAccount'
 import ErrorPage from '../pages/errorPage/ErrorPage'
+import { getInLocalStorage } from '../utilities'
+import ForgotPassword from '../pages/forgotPassword/ForgotPassword'
 
 const Routes: React.FC = () => {
+
+    //get userId from localstorage
+    const userId = getInLocalStorage("id");
+
     return (
         <IonReactRouter>
             <IonRouterOutlet>
-                <Route exact path='/home' component={Home} />
-                <Route exact path='/rutine' component={Rutine} />
-                <Route exact path='/profile' component={Profile} />
-                <Route exact path='/updateAccount' component={UpdateAccount} />
-                <Route exact path='/deleteAccount' component={DeleteAccount} />
-                <Route exact path='/settings' component={Settings} />
+                {userId != null ? (
+                    <>
+                        <Route exact path='/home' component={Home} />
+                        <Route exact path='/rutine' component={Rutine} />
+                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/updateAccount' component={UpdateAccount} />
+                        <Route exact path='/deleteAccount' component={DeleteAccount} />
+                        <Route exact path='/settings' component={Settings} />
 
-                <Route exact path='/book' component={Book} />
-                <Route exact path='/history' component={History} />
-                <Route exact path='/payments' component={Payments} />
-                <Route exact path='/notifications' component={Notifications} />
+                        <Route exact path='/book' component={Book} />
+                        <Route exact path='/history' component={History} />
+                        <Route exact path='/payments' component={Payments} />
+                        <Route exact path='/notifications' component={Notifications} />
 
-                <Route exact path='/error' component={ErrorPage} />
+                        <Route exact path='/error' component={ErrorPage} />
+                        <Route exact path='/login' component={Login} />
 
-                <Route exact path='/login' component={Login} />
-
-                <Redirect exact path="/" to="/home" />
+                        <Redirect exact path="/" to="/home" />
+                    </>
+                ) : (
+                    <>
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/forgotPassword' component={ForgotPassword} />
+                        <Redirect exact path="/" to="/login" />
+                    </>
+                )}
             </IonRouterOutlet>
-        </IonReactRouter>
+        </IonReactRouter >
     )
 }
 

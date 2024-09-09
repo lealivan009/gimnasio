@@ -31,7 +31,7 @@ const Settings: React.FC = () => {
                 <IonGrid >
                     <IonRow >
                         <IonCol size="12" sizeLg="8" offsetLg='2' >
-                            <IonItem color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className={`icon ${theme === 'light' ? 'warning-background' : 'light-background'}`}>
                                     <IonIcon slot="start" icon={theme === 'light' ? sunny : moon} color={theme == 'light' ? 'light' : 'dark'} />
                                 </div>
@@ -53,108 +53,108 @@ const Settings: React.FC = () => {
 
                     <IonRow >
                         <IonCol size="12" sizeLg="8" offsetLg='2'>
-                            <IonItem>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div style={{ margin: "auto" }}>
                                     <h4 ><i>Configuraciones para administradores</i></h4>
                                 </div>
                             </IonItem>
 
-                            <IonItem>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <IonText>
                                     <h4><i>Administrar usuarios</i></h4>
                                 </IonText>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon success-background">
                                     <IonIcon slot="start" icon={personAddSharp} color="light" />
                                 </div>
                                 <IonLabel>Crear usuario</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon primary-background">
                                     <IonIcon slot="start" icon={personAddSharp} color="light" />
                                 </div>
                                 <IonLabel>Actualizar usuario</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon primary-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Cambiar plan a usuario</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon primary-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Cambiar agenda a usuario</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={key} color="light" />
                                 </div>
                                 <IonLabel>Blanquear contraseña</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={trash} color="light" />
                                 </div>
                                 <IonLabel>Eliminar cuenta de usuario</IonLabel>
                             </IonItem>
 
-                            <IonItem>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <IonText>
                                     <h4><i>Administrar planes</i></h4>
                                 </IonText>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon success-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Crear plan</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon primary-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Actualizar plan</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={key} color="light" />
                                 </div>
                                 <IonLabel>Eliminar plan</IonLabel>
                             </IonItem>
 
-                            <IonItem>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
                                 <IonText>
                                     <h4><i>Administrar Rutinas</i></h4>
                                 </IonText>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon success-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Crear Rutina</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon primary-background">
                                     <IonIcon slot="start" icon={book} color="light" />
                                 </div>
                                 <IonLabel>Editar rutina</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={key} color="light" />
                                 </div>
@@ -166,25 +166,27 @@ const Settings: React.FC = () => {
 
                     <IonRow >
                         <IonCol size="12" sizeLg="8" offsetLg='2'>
-                            <IonText>
-                                <h4><i>Configuraciones para usuario</i></h4>
-                            </IonText>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
+                                <div style={{ margin: "auto" }}>
+                                    <h4><i>Configuraciones para usuario</i></h4>
+                                </div>
+                            </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={key} color="light" />
                                 </div>
                                 <IonLabel>Cambiar contraseña</IonLabel>
                             </IonItem>
 
-                            <IonItem button color='medium'>
+                            <IonItem button color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={trash} color="light" />
                                 </div>
                                 <IonLabel>Eliminar cuenta</IonLabel>
                             </IonItem>
 
-                            <IonItem button onClick={handleLogOut} color='medium'>
+                            <IonItem button onClick={handleLogOut} color={theme === 'light' ? 'light' : 'medium'}>
                                 <div className="icon danger-background">
                                     <IonIcon slot="start" icon={logOut} color="light" />
                                 </div>
