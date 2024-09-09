@@ -65,7 +65,7 @@ const Settings: React.FC = () => {
                                 </IonText>
                             </IonItem>
 
-                            <IonItem color={theme === 'light' ? 'light' : 'medium'}>
+                            <IonItem color={theme === 'light' ? 'light' : 'medium'} routerLink='/createAccount'>
                                 <div className="icon success-background">
                                     <IonIcon slot="start" icon={personAddSharp} color="light" />
                                 </div>

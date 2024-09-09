@@ -13,6 +13,7 @@ export interface User {
     birthDate: string;
     username: string;
     email: string;
+    password: string;
     phone: string;
     province: string,
     departament: string,

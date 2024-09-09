@@ -15,6 +15,7 @@ import DeleteAccount from '../pages/deleteAccount/DeleteAccount'
 import ErrorPage from '../pages/errorPage/ErrorPage'
 import { getInLocalStorage } from '../utilities'
 import ForgotPassword from '../pages/forgotPassword/ForgotPassword'
+import CreateAccount from '../pages/createAccount/CreateAccount'
 
 const Routes: React.FC = () => {
 
@@ -30,6 +31,7 @@ const Routes: React.FC = () => {
                         <Route exact path='/rutine' component={Rutine} />
                         <Route exact path='/profile' component={Profile} />
                         <Route exact path='/updateAccount' component={UpdateAccount} />
+                        <Route exact path='/createAccount' component={CreateAccount} />
                         <Route exact path='/deleteAccount' component={DeleteAccount} />
                         <Route exact path='/settings' component={Settings} />
 
